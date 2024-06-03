@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://chsfppi2amkpv"]
+[gd_scene load_steps=6 format=3 uid="uid://chsfppi2amkpv"]
 
 [ext_resource type="PackedScene" uid="uid://5c34vbqup320" path="res://Shared/Scenes/Player.tscn" id="1_2tn6g"]
+[ext_resource type="Script" path="res://Shared/Scripts/SceneManager.gd" id="1_p237l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a2hk3"]
 
@@ -11,18 +12,17 @@ sky_material = SubResource("ProceduralSkyMaterial_a2hk3")
 background_mode = 2
 sky = SubResource("Sky_mom3y")
 ambient_light_source = 3
-ambient_light_color = Color(1, 1, 1, 1)
 reflected_light_source = 2
 
 [node name="Level1" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0146732, 4.76837e-07, -0.00843692)
+script = ExtResource("1_p237l")
+PlayerScene = ExtResource("1_2tn6g")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0579352, -0.0540563, 0.0431051)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.49745, -0.0540563, 0.0431051)
 use_collision = true
-size = Vector3(16.1652, 0.001, 15.9346)
-
-[node name="PlayerController" parent="." instance=ExtResource("1_2tn6g")]
+size = Vector3(33.276, 0.001, 15.9346)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0579352, 7.82392, -7.85612)
@@ -36,3 +36,12 @@ size = Vector3(16.1652, 0.001, 15.9346)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7n5cp")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.332461, 0.657681, 0.675963, -0.273079, -0.618901, 0.736471, 0.902717, -0.42944, -0.0261612, 12.7334, 23.7979, 0)
+
+[node name="0" type="Node3D" parent="." groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.1529, 0, 0)
+
+[node name="1" type="Node3D" parent="." groups=["PlayerSpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.12635, 0, 0)
