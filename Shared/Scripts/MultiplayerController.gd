@@ -4,7 +4,9 @@ extends Control
 @export var port = 8910
 var peer
 
-# Called when the node enters the scene tree for the first time.
+# Called when the node is instantiated, we interface with Godot's `multiplayer` api
+# We must implement required multiplayer functions (done below),
+# then provide a reference to each function through `connect`
 func _ready():
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
@@ -13,58 +15,66 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(delta):
 	pass
 
-# this get called on the server and clients
+# Called on the peer connecting to the server (and on the server)
 func peer_connected(id):
 	print("Player Connected " + str(id))
 	
-# this get called on the server and clients
+# Called on the peer disconnecting from the server (and on the server)
 func peer_disconnected(id):
 	print("Player Disconnected " + str(id))
 	GameManager.Players.erase(id)
 	var players = get_tree().get_nodes_in_group("Player")
-	for i in players:
-		if i.name == str(id):
-			i.queue_free()
-# called only from clients
+	for player in players:
+		if player.name == str(id):
+			player.queue_free()
+			
+# Called on the peer connecting to the server
 func connected_to_server():
-	print("connected To Sever!")
+	print("You connected to the server successfully")
 	SendPlayerInformation.rpc_id(1, $LineEdit.text, multiplayer.get_unique_id())
 
-# called only from clients
+# Called on the peer attempting (and failing) to connect to the server
 func connection_failed():
-	print("Couldnt Connect")
+	print("You were unable to connect")
 
+# Any peer can call this procedure to update the game state.
 @rpc("any_peer")
 func SendPlayerInformation(name, id):
+	# If there is no player "id" in the game state, create a new entry
 	if !GameManager.Players.has(id):
-		GameManager.Players[id] ={
+		GameManager.Players[id] = {
 			"name" : name,
 			"id" : id,
 			"score": 0
 		}
 	
+	# If the peer is the server, it should send the current game state to each player.
 	if multiplayer.is_server():
 		for player_id in GameManager.Players:
 			SendPlayerInformation.rpc(GameManager.Players[player_id].name, player_id)
 
+# To be called by whoever starts the game ("any_peer")
+# It will start the game for everyone, including itself ("call_local")
 @rpc("any_peer","call_local")
 func StartGame():
 	var scene = load("res://Shared/Scenes/Main.tscn").instantiate()
 	get_tree().root.add_child(scene)
 	self.hide()
 	
+# The person who hosts the server, is also a peer
 func hostGame():
 	peer = ENetMultiplayerPeer.new()
-	var error = peer.create_server(port, 2)
-	if error != OK:
-		print("cannot host: " + error)
-		return
-	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+	var server_creation_status = peer.create_server(port, 2)
 	
+	if server_creation_status != OK:
+		print("failed to host: " + str(server_creation_status))
+		return
+	
+	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
 	print("Waiting For Players!")
 	

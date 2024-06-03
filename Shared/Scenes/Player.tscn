@@ -16,9 +16,10 @@ properties/2/path = NodePath("Head/Camera3D:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="PlayerController" type="CharacterBody3D"]
+[node name="PlayerController" type="CharacterBody3D" node_paths=PackedStringArray("nameLabel")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.742585, -0.0968697)
 script = ExtResource("1_5v42v")
+nameLabel = NodePath("Label3D")
 
 [node name="Head" type="Node3D" parent="."]
 
@@ -37,3 +38,8 @@ shape = SubResource("CapsuleShape3D_7hxx6")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5o1ug")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19451, 0)
+billboard = 1
+text = "bama"

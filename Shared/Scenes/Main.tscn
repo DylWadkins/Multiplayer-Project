@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://chsfppi2amkpv"]
+[gd_scene load_steps=7 format=3 uid="uid://chsfppi2amkpv"]
 
 [ext_resource type="PackedScene" uid="uid://5c34vbqup320" path="res://Player.tscn" id="1_2tn6g"]
 [ext_resource type="Script" path="res://Shared/Scripts/SceneManager.gd" id="1_p237l"]
@@ -14,10 +14,14 @@ sky = SubResource("Sky_mom3y")
 ambient_light_source = 3
 reflected_light_source = 2
 
-[node name="Level1" type="Node3D"]
+[sub_resource type="LabelSettings" id="LabelSettings_vos2o"]
+font_size = 20
+
+[node name="Level1" type="Node3D" node_paths=PackedStringArray("IdLabel")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0146732, 4.76837e-07, -0.00843692)
 script = ExtResource("1_p237l")
 PlayerScene = ExtResource("1_2tn6g")
+IdLabel = NodePath("Label")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.49745, -0.0540563, 0.0431051)
@@ -45,3 +49,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.2527, 0, 0)
 
 [node name="1" type="Node3D" parent="." groups=["PlayerSpawnPoints"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.12635, 0, 0)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 37.0
+offset_top = 23.0
+offset_right = 285.0
+offset_bottom = 60.0
+label_settings = SubResource("LabelSettings_vos2o")
