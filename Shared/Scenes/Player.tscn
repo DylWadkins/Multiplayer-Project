@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://5c34vbqup320"]
+[gd_scene load_steps=5 format=3 uid="uid://5c34vbqup320"]
 
 [ext_resource type="Script" path="res://Shared/Scripts/character_body_3d.gd" id="1_5v42v"]
+[ext_resource type="Texture2D" uid="uid://dlr83kg08o72u" path="res://Dylan/Textures/Hand.png" id="2_4u1vu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7hxx6"]
 height = 1.76667
@@ -14,7 +15,10 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 properties/2/path = NodePath("Head/Camera3D:rotation")
 properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/2/replication_mode = 0
+properties/3/path = NodePath("Head/Arms:layer")
+properties/3/spawn = true
+properties/3/replication_mode = 0
 
 [node name="PlayerController" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.742585, -0.0968697)
@@ -23,10 +27,24 @@ script = ExtResource("1_5v42v")
 [node name="Head" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.555647, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000503778, 0.555647, -0.0175049)
 
 [node name="RayCast3D" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.621277, -0.368613)
+
+[node name="Arms" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0377815, 0.119521)
+
+[node name="LeftHand" type="Sprite3D" parent="Head/Arms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.74, 0.153, -0.762)
+visibility_range_end = 1.2
+flip_h = true
+texture = ExtResource("2_4u1vu")
+
+[node name="RightHand" type="Sprite3D" parent="Head/Arms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.775, 0.153, -0.762)
+visibility_range_end = 1.2
+texture = ExtResource("2_4u1vu")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0933778, 0)

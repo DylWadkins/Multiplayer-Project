@@ -1,5 +1,6 @@
 extends CharacterBody3D
-
+@onready var LeftHand := $Head/Arms/LeftHand
+@onready var RightHand := $Head/Arms/RightHand
 @onready var head := $Head
 @onready var camera := $Head/Camera3D
 var id := 0
@@ -16,7 +17,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event is InputEventMouseMotion:
 				head.rotate_y(-event.relative.x * 0.001)
 				camera.rotate_x(-event.relative.y * 0.001)
-				camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
+				camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-10), deg_to_rad(10))
 
 func _ready():
 	$MultiplayerSynchronizer.set_multiplayer_authority(id)
