@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://chsfppi2amkpv"]
 
-[ext_resource type="PackedScene" uid="uid://5c34vbqup320" path="res://Shared/Scenes/Player.tscn" id="1_2tn6g"]
+[ext_resource type="PackedScene" uid="uid://5c34vbqup320" path="res://Player.tscn" id="1_2tn6g"]
 [ext_resource type="Script" path="res://Shared/Scripts/SceneManager.gd" id="1_p237l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a2hk3"]
@@ -41,7 +41,7 @@ environment = SubResource("Environment_7n5cp")
 transform = Transform3D(0.332461, 0.657681, 0.675963, -0.273079, -0.618901, 0.736471, 0.902717, -0.42944, -0.0261612, 12.7334, 23.7979, 0)
 
 [node name="0" type="Node3D" parent="." groups=["PlayerSpawnPoints"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.831, 0.839707, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.2527, 0, 0)
 
 [node name="1" type="Node3D" parent="." groups=["PlayerSpawnPoints"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.12635, 0, 0)

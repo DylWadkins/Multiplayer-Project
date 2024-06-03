@@ -5,14 +5,14 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7hxx6"]
 height = 1.76667
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qmilx"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5o1ug"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("Head/Camera3D:rotation")
+properties/1/path = NodePath("Head:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath(".:rotation")
+properties/2/path = NodePath("Head/Camera3D:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
@@ -25,6 +25,9 @@ script = ExtResource("1_5v42v")
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.555647, 0)
 
+[node name="RayCast3D" type="RayCast3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.621277, -0.368613)
+
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0933778, 0)
 height = 1.69571
@@ -33,4 +36,4 @@ height = 1.69571
 shape = SubResource("CapsuleShape3D_7hxx6")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_qmilx")
+replication_config = SubResource("SceneReplicationConfig_5o1ug")

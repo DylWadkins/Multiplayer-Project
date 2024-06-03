@@ -6,9 +6,11 @@ extends Node3D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var index = 0
-	for i in GameManager.Players:
+	for id in GameManager.Players:
 		var currentPlayer = PlayerScene.instantiate()
-		currentPlayer.name = str(GameManager.Players[i].id)
+		print("Instantiated ", id)
+		currentPlayer.id = id
+		#currentPlayer.get_node('MultiplayerSynchronizer').set_multiplayer_authority(id)
 		add_child(currentPlayer)
 		for spawn in get_tree().get_nodes_in_group("PlayerSpawnPoints"):
 			if spawn.name == str(index):

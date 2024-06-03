@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7s68ar5la8np"]
+[gd_scene load_steps=2 format=3 uid="uid://7gydm80llmyh"]
 
 [ext_resource type="Script" path="res://Shared/Scripts/MultiplayerController.gd" id="1_mat28"]
 
