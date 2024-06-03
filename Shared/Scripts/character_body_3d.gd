@@ -1,8 +1,10 @@
 extends CharacterBody3D
 @onready var LeftHand := $Head/Arms/LeftHand
 @onready var RightHand := $Head/Arms/RightHand
+@onready var Fist := $Head/Arms/Fist
 @onready var head := $Head
 @onready var camera := $Head/Camera3D
+@onready var animation := $Head/AnimationPlayer
 @export var nameLabel : Label3D
 
 var id := 0
@@ -20,7 +22,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			print("rotating ", id)
 			head.rotate_y(-event.relative.x * 0.001)
 			camera.rotate_x(-event.relative.y * 0.001)
-			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-10), deg_to_rad(10))
+			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-5), deg_to_rad(10))
 
 func _ready():
 	$MultiplayerSynchronizer.set_multiplayer_authority(id)
@@ -30,6 +32,15 @@ func _ready():
 	
 func _physics_process(delta: float) -> void:
 	#$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
+	if Input.is_action_just_pressed("Attack"):
+		RightHand.visible = false
+		Fist.visible = true
+		animation.play("Punch")
+	
+	if Input.is_action_just_released("Attack"):
+		await get_tree().create_timer(0.01).timeout
+		RightHand.visible = true
+		Fist.visible = false
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta

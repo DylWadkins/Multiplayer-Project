@@ -1,6 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://5c34vbqup320"]
+[gd_scene load_steps=8 format=3 uid="uid://5c34vbqup320"]
 
 [ext_resource type="Script" path="res://Shared/Scripts/character_body_3d.gd" id="1_5v42v"]
+[ext_resource type="Texture2D" uid="uid://byascmsd4fcqw" path="res://Dylan/Textures/Dylan_Hands.webp" id="2_cpd72"]
+[ext_resource type="Texture2D" uid="uid://cv4w4mioxowns" path="res://Dylan/Textures/Fist.png" id="3_6fee6"]
+
+[sub_resource type="Animation" id="Animation_rkrmi"]
+resource_name = "Punch"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Arms/Fist:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1998, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.635, 0.28, -0.768), Vector3(0.335, 0.545, -0.768), Vector3(0.635, 0.28, -0.768)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tc33u"]
+_data = {
+"Punch": SubResource("Animation_rkrmi")
+}
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7hxx6"]
 height = 1.76667
@@ -15,6 +38,12 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("Head/Camera3D:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("Head/Arms/Fist:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Head/AnimationPlayer:current_animation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [node name="PlayerController" type="CharacterBody3D" node_paths=PackedStringArray("nameLabel")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.742585, -0.0968697)
@@ -28,6 +57,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.555647, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.621277, -0.368613)
+
+[node name="Arms" type="Node3D" parent="Head"]
+
+[node name="LeftHand" type="Sprite3D" parent="Head/Arms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.668, 0.125, -0.768)
+visibility_range_end = 1.2
+flip_h = true
+texture = ExtResource("2_cpd72")
+
+[node name="RightHand" type="Sprite3D" parent="Head/Arms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.619, 0.271, -0.768)
+visibility_range_end = 1.2
+texture = ExtResource("2_cpd72")
+
+[node name="Fist" type="Sprite3D" parent="Head/Arms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.635, 0.28, -0.768)
+visible = false
+visibility_range_end = 1.2
+texture = ExtResource("3_6fee6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Head"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_tc33u")
+}
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0933778, 0)
