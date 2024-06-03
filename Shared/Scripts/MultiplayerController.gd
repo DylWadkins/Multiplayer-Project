@@ -68,17 +68,17 @@ func StartGame():
 # The person who hosts the server, is also a peer
 func hostGame():
 	peer = ENetMultiplayerPeer.new()
-	var server_creation_status = peer.create_server(port, 2)
+	var server_status = peer.create_server(port, 2)
 	
-	if server_creation_status != OK:
-		print("failed to host: " + str(server_creation_status))
+	if server_status != OK:
+		print("failed to host: " + str(server_status))
 		return
 	
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
 	print("Waiting For Players!")
 	
-
+# Create a peer upon joining, attempt to connect to `Address:port`
 func _on_join_button_down():
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(Address, port)
@@ -86,6 +86,7 @@ func _on_join_button_down():
 	multiplayer.set_multiplayer_peer(peer)	
 	pass # Replace with function body.
 
+#
 func _on_host_button_down() -> void:
 	hostGame()
 	SendPlayerInformation($LineEdit.text, multiplayer.get_unique_id())
