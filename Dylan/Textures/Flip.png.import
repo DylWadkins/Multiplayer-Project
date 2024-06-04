@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byascmsd4fcqw"
-path="res://.godot/imported/Dylan_Hands.webp-4a5322ba9483137e2bb7dacbc534e681.ctex"
+uid="uid://cbx20rcr1duna"
+path="res://.godot/imported/Flip.png-baa9e3323f7775569b9d96cb5a29737c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Dylan/Textures/Dylan_Hands.webp"
-dest_files=["res://.godot/imported/Dylan_Hands.webp-4a5322ba9483137e2bb7dacbc534e681.ctex"]
+source_file="res://Dylan/Textures/Flip.png"
+dest_files=["res://.godot/imported/Flip.png-baa9e3323f7775569b9d96cb5a29737c.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=1
+compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0

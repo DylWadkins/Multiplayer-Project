@@ -2,6 +2,7 @@ extends CharacterBody3D
 @onready var LeftHand := $Head/Arms/LeftHand
 @onready var RightHand := $Head/Arms/RightHand
 @onready var Fist := $Head/Arms/Fist
+@onready var Flip := $Head/Arms/Flip
 @onready var head := $Head
 @onready var camera := $Head/Camera3D
 @onready var animation := $Head/AnimationPlayer
@@ -19,7 +20,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			print("rotating ", id)
+			#print("rotating ", id)
 			head.rotate_y(-event.relative.x * 0.001)
 			camera.rotate_x(-event.relative.y * 0.001)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-5), deg_to_rad(10))
@@ -36,9 +37,19 @@ func _physics_process(delta: float) -> void:
 		RightHand.visible = false
 		Fist.visible = true
 		animation.play("Punch")
+		
+	if Input.is_action_just_pressed("Taunt"):
+		LeftHand.visible = false
+		Flip.visible = true
+		animation.play('Flip')
+	
+	if Input.is_action_just_released("Taunt"):
+		animation.play("FlipDown")
+		Flip.visible = false
+		LeftHand.visible = true
 	
 	if Input.is_action_just_released("Attack"):
-		await get_tree().create_timer(0.01).timeout
+		await get_tree().create_timer(0.001).timeout
 		RightHand.visible = true
 		Fist.visible = false
 	

@@ -45,10 +45,10 @@ environment = SubResource("Environment_7n5cp")
 transform = Transform3D(0.332461, 0.657681, 0.675963, -0.273079, -0.618901, 0.736471, 0.902717, -0.42944, -0.0261612, 12.7334, 23.7979, 0)
 
 [node name="0" type="Node3D" parent="." groups=["PlayerSpawnPoints"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.2527, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.2527, 0.500253, 0)
 
 [node name="1" type="Node3D" parent="." groups=["PlayerSpawnPoints"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.12635, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.12635, 0.852781, 0)
 
 [node name="Label" type="Label" parent="."]
 offset_left = 37.0
