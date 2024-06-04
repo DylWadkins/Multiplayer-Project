@@ -1,7 +1,7 @@
 extends Control
 
-@export var Address = "127.0.0.1"
-@export var port = 8910
+@export var address = "127.0.0.1"
+@export var port = 27015
 var peer
 
 # Called when the node is instantiated, we interface with Godot's `multiplayer` api
@@ -12,6 +12,8 @@ func _ready():
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.connection_failed.connect(connection_failed)
+	if "--server" in OS.get_cmdline_args():
+		hostGame()
 	pass # Replace with function body.
 
 
@@ -65,7 +67,7 @@ func StartGame():
 	get_tree().root.add_child(scene)
 	self.hide()
 	
-# The person who hosts the server, is also a peer
+# The person who hosts the server (also a peer)
 func hostGame():
 	peer = ENetMultiplayerPeer.new()
 	var server_status = peer.create_server(port, 2)
@@ -78,10 +80,10 @@ func hostGame():
 	multiplayer.set_multiplayer_peer(peer)
 	print("Waiting For Players!")
 	
-# Create a peer upon joining, attempt to connect to `Address:port`
+# Create a peer upon joining, attempt to connect to `address:port`
 func _on_join_button_down():
 	peer = ENetMultiplayerPeer.new()
-	peer.create_client(Address, port)
+	peer.create_client(address, port)
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)	
 	pass # Replace with function body.
