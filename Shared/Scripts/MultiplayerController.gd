@@ -147,8 +147,7 @@ func _player_list_changed() -> void:
 	)
 	lobby_list.clear()
 	for player in GameManager.Players:
-		var name = GameManager.get_player(player)["name"]
-		lobby_list.add_item("%s (%s)" % [name if name else "Player", str(player)])
+		lobby_list.add_item("%s (%s)" % [GameManager.get_player(player)["name"], str(player)])
 
 func _on_start_button_down() -> void:
 	start_game.rpc()

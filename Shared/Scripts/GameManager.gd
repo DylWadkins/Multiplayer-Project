@@ -23,7 +23,7 @@ func get_player(id: int) -> Dictionary:
 	
 func create_player(id: int, name: String) -> void:
 	Players[id] = {
-			"name" : name,
+			"name" : name if name else "Player",
 			"id" : id,
 			"score": 0
 	}

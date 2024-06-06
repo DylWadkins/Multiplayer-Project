@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://chsfppi2amkpv"]
 
-[ext_resource type="PackedScene" uid="uid://5c34vbqup320" path="res://Shared/Scenes/Player.tscn" id="1_2tn6g"]
 [ext_resource type="Script" path="res://Shared/Scripts/SceneManager.gd" id="1_p237l"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="2_013nq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a2hk3"]
 
@@ -17,11 +17,10 @@ reflected_light_source = 2
 [sub_resource type="LabelSettings" id="LabelSettings_vos2o"]
 font_size = 20
 
-[node name="Level1" type="Node3D" node_paths=PackedStringArray("IdLabel")]
+[node name="Level1" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0146732, 4.76837e-07, -0.00843692)
 script = ExtResource("1_p237l")
-PlayerScene = ExtResource("1_2tn6g")
-IdLabel = NodePath("Label")
+PlayerScene = ExtResource("2_013nq")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.49745, -0.0540563, 0.0431051)
