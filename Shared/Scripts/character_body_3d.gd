@@ -28,7 +28,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _ready():
 	$MultiplayerSynchronizer.set_multiplayer_authority(id)
 	camera.current = is_authority()
-	nameLabel.text = "%s (%d)" % ["Player", id]
+	var name = GameManager.get_player(id)["name"]
+	nameLabel.text = "%s (%d)" % [name if name else "Player", id]
 	
 	
 func _physics_process(delta: float) -> void:

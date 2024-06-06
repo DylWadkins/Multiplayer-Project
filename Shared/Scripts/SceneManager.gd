@@ -17,7 +17,6 @@ func _ready() -> void:
 			if spawn.name == str(index):
 				currentPlayer.global_position = spawn.global_position
 		index += 1
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

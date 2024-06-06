@@ -1,0 +1,82 @@
+[gd_scene load_steps=2 format=3 uid="uid://7gydm80llmyh"]
+
+[ext_resource type="Script" path="res://Shared/Scripts/MultiplayerController.gd" id="1_mat28"]
+
+[node name="Menu" type="Control" node_paths=PackedStringArray("host_button", "join_button", "lobby_label", "lobby_list")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mat28")
+host_button = NodePath("Host")
+join_button = NodePath("Join")
+lobby_label = NodePath("LobbyDisplay/Label")
+lobby_list = NodePath("LobbyDisplay/ItemList")
+
+[node name="Host" type="Button" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 216.0
+offset_bottom = 216.0
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 64.0
+offset_right = 408.0
+offset_bottom = 216.0
+text = "Join"
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 64.0
+offset_right = 600.0
+offset_bottom = 217.0
+text = "Start"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 24.0
+offset_right = 479.0
+offset_bottom = 55.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 24.0
+offset_right = 111.0
+offset_bottom = 47.0
+text = "Name
+"
+
+[node name="LobbyDisplay" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="LobbyDisplay"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 248.0
+offset_right = 226.0
+offset_bottom = 271.0
+text = "Current Lobby: None"
+
+[node name="ItemList" type="ItemList" parent="LobbyDisplay"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 280.0
+offset_right = 420.0
+offset_bottom = 400.0
+allow_search = false
+auto_height = true
+
+[connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
+[connection signal="button_down" from="Start" to="." method="_on_start_button_down"]
