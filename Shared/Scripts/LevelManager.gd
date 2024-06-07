@@ -17,7 +17,7 @@ func spawn_player(id) -> void:
 	if spawn_pos:
 		remote_spawn_player.rpc(id, spawn_pos)
 	else:
-		push_error("Failed to spawn player! This error should get handled eventually.")
+		push_error("Failed to spawn player! This error should probably get handled eventually.")
 		
 @rpc("any_peer","call_local")
 func remote_spawn_player(id, spawn_pos):
