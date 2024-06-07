@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://chsfppi2amkpv"]
+[gd_scene load_steps=6 format=3 uid="uid://chsfppi2amkpv"]
 
-[ext_resource type="Script" path="res://Shared/Scripts/SceneManager.gd" id="1_p237l"]
-[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="2_013nq"]
+[ext_resource type="Script" path="res://Shared/Scripts/LevelManager.gd" id="1_ou2vj"]
+[ext_resource type="PackedScene" uid="uid://cse863jipm4hc" path="res://Shared/Scenes/Spawn.tscn" id="3_ooi40"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a2hk3"]
 
@@ -14,13 +14,9 @@ sky = SubResource("Sky_mom3y")
 ambient_light_source = 3
 reflected_light_source = 2
 
-[sub_resource type="LabelSettings" id="LabelSettings_vos2o"]
-font_size = 20
-
 [node name="Level1" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0146732, 4.76837e-07, -0.00843692)
-script = ExtResource("1_p237l")
-PlayerScene = ExtResource("2_013nq")
+script = ExtResource("1_ou2vj")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.49745, -0.0540563, 0.0431051)
@@ -43,15 +39,12 @@ environment = SubResource("Environment_7n5cp")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.332461, 0.657681, 0.675963, -0.273079, -0.618901, 0.736471, 0.902717, -0.42944, -0.0261612, 12.7334, 23.7979, 0)
 
-[node name="0" type="Node3D" parent="." groups=["PlayerSpawnPoints"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.2527, 0.500253, 0)
+[node name="SpawnArea" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("3_ooi40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.88784, -0.0535559, -0.838464)
+spawn_point = NodePath("SpawnPoint")
+spawn_area = NodePath("SpawnArea")
 
-[node name="1" type="Node3D" parent="." groups=["PlayerSpawnPoints"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.12635, 0.852781, 0)
-
-[node name="Label" type="Label" parent="."]
-offset_left = 37.0
-offset_top = 23.0
-offset_right = 285.0
-offset_bottom = 60.0
-label_settings = SubResource("LabelSettings_vos2o")
+[node name="SpawnArea2" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("3_ooi40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1931, -0.0535563, 0.433399)
+spawn_point = NodePath("SpawnPoint")
+spawn_area = NodePath("SpawnArea")

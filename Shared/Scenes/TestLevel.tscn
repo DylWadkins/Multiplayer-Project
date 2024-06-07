@@ -1,7 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dsndkxlabe4xu"]
+[gd_scene load_steps=13 format=3 uid="uid://dsndkxlabe4xu"]
 
-[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="1_e18vq"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/Player.tscn" id="1_e18vq"]
 [ext_resource type="Texture2D" uid="uid://pe7a4weirj2g" path="res://Shared/Textures/dark.png" id="2_08fdt"]
+[ext_resource type="Material" path="res://addons/qodot/textures/orrery/sun.tres" id="2_y12ay"]
+[ext_resource type="Material" path="res://addons/qodot/textures/layers/water.tres" id="3_34jdn"]
 [ext_resource type="Texture2D" uid="uid://cxjxvqmf4boxq" path="res://Shared/Textures/green.png" id="3_q4clv"]
 [ext_resource type="Texture2D" uid="uid://dsv4jm4vydflb" path="res://Shared/Textures/orange.png" id="4_1ns5t"]
 
@@ -16,25 +18,6 @@ background_mode = 2
 sky = SubResource("Sky_2iust")
 tonemap_mode = 1
 ssao_enabled = true
-
-[sub_resource type="Gradient" id="Gradient_ur0vy"]
-colors = PackedColorArray(0, 0.476245, 0.0193456, 1, 0.360494, 0.612721, 0.119744, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_jd3pw"]
-frequency = 0.0027
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7akuf"]
-width = 1024
-height = 1024
-in_3d_space = true
-seamless = true
-color_ramp = SubResource("Gradient_ur0vy")
-noise = SubResource("FastNoiseLite_jd3pw")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_67ysu"]
-albedo_texture = SubResource("NoiseTexture2D_7akuf")
-uv1_scale = Vector3(0.1, 0.1, 0.1)
-uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gomnb"]
 albedo_texture = ExtResource("2_08fdt")
@@ -72,6 +55,9 @@ CROUCH_ANIMATION = NodePath("CrouchAnimation")
 COLLISION_MESH = NodePath("Collision")
 NAMETAG = NodePath("Label3D")
 
+[node name="DebugPanel" parent="Character/UserInterface" index="0"]
+visible = false
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_20rw3")
 
@@ -83,27 +69,38 @@ shadow_enabled = true
 [node name="terrain" type="Node3D" parent="."]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.5, 10)
 use_collision = true
-size = Vector3(30, 1, 30)
-material = SubResource("StandardMaterial3D_67ysu")
+size = Vector3(10, 1, 10)
+material = ExtResource("2_y12ay")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.431, 0)
+use_collision = true
+size = Vector3(18, 1, 10)
+material = ExtResource("3_34jdn")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 use_collision = true
 size = Vector3(10, 1, 10)
 material = SubResource("StandardMaterial3D_gomnb")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.8, -13)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.93532, 2.38134, -13)
 use_collision = true
-size = Vector3(4, 0.5, 4)
+size = Vector3(6, 0.5, 4)
 material = SubResource("StandardMaterial3D_gomnb")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="terrain"]
-transform = Transform3D(0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0, 1, -9.5, 1.2, -10)
+transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, -8.59329, 2, -10)
 use_collision = true
 size = Vector3(10, 1, 10)
+material = SubResource("StandardMaterial3D_u0sbk")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.168, 4.43, -5)
+use_collision = true
+size = Vector3(9, 1, 20)
 material = SubResource("StandardMaterial3D_u0sbk")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="terrain"]

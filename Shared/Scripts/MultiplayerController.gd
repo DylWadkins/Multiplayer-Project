@@ -1,11 +1,13 @@
 extends Control
 
+@export_group("Settings")
 @export var using_dedicated_server := false
 @export var localhost := "127.0.0.1"
 @export var server_address := "67.205.156.113"
 @export var port : int = 27015
-@export var max_players : int = 2
+@export var max_players : int = 4
 
+@export_group("Nodes")
 @export var host_button : Button
 @export var join_button : Button
 @export var lobby_label : Label
@@ -16,7 +18,6 @@ var client_state = ClientState.ALONE
 
 var level_path := "res://Shared/Scenes/Level.tscn"
 var level : PackedScene
-var lobby_listing : ItemList
 var peer : ENetMultiplayerPeer
 
 # Called when the node is instantiated, we interface with Godot's `multiplayer` api
@@ -38,7 +39,7 @@ func _ready():
 		host_lobby()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
-func _process(delta):
+func _process(_delta):
 	pass
 
 # Called on every client (and server) when the peer connects
@@ -78,7 +79,7 @@ func SendPlayerInformation(name, id):
 	# If the peer is the server, it should send the current game state to each player.
 	if multiplayer.is_server():
 		for player_id in GameManager.Players:
-			SendPlayerInformation.rpc(GameManager.Players[player_id].name, player_id)
+			SendPlayerInformation.rpc(GameManager.get_player(player_id).name, player_id)
 
 # To be called by whoever starts the game ("any_peer")
 # It will start the game for everyone, including itself ("call_local")
@@ -86,6 +87,11 @@ func SendPlayerInformation(name, id):
 func start_game():
 	var scene = level.instantiate()
 	get_tree().root.add_child(scene)
+	
+	# If there is a network desync with spawning, it is likely related to this.
+	if multiplayer.is_server():
+		scene.spawn_all_players()
+		
 	self.hide()
 	
 # The person who hosts the server (also a peer)
@@ -146,8 +152,8 @@ func _player_list_changed() -> void:
 		[GameManager.get_num_players(), max_players, server_address]
 	)
 	lobby_list.clear()
-	for player in GameManager.Players:
-		lobby_list.add_item("%s (%s)" % [GameManager.get_player(player)["name"], str(player)])
+	for id in GameManager.Players:
+		lobby_list.add_item("%s (%s)" % [GameManager.get_player(id).name, str(id)])
 
 func _on_start_button_down() -> void:
 	start_game.rpc()

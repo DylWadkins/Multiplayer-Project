@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://cse863jipm4hc"]
+
+[ext_resource type="Script" path="res://Shared/Scripts/SpawnNode.gd" id="1_rfika"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_arkct"]
+size = Vector3(1, 2, 1)
+
+[node name="Spawn" type="Node3D" node_paths=PackedStringArray("spawn_point", "spawn_area") groups=["SpawnNodes"]]
+script = ExtResource("1_rfika")
+spawn_point = NodePath("SpawnPoint")
+spawn_area = NodePath("SpawnArea")
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="SpawnVisual" type="CSGBox3D" parent="."]
+size = Vector3(1, 0.1, 1)
+
+[node name="SpawnArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_arkct")
+
+[connection signal="body_entered" from="SpawnArea" to="." method="_on_spawn_area_body_entered"]
+[connection signal="body_exited" from="SpawnArea" to="." method="_on_spawn_area_body_exited"]

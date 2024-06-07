@@ -6,11 +6,11 @@
 extends CharacterBody3D
 
 @export_category("Character")
-@export var base_speed : float = 3.0
-@export var sprint_speed : float = 6.0
+@export var base_speed : float = 6.0
+@export var sprint_speed : float = 9.0
 @export var crouch_speed : float = 1.0
 
-@export var acceleration : float = 10.0
+@export var acceleration : float = 20.0
 @export var jump_velocity : float = 4.5
 @export var mouse_sensitivity : float = 0.1
 @export var immobile : bool = false
@@ -43,6 +43,7 @@ extends CharacterBody3D
 #@export var LOOK_DOWN : String
 
 @export_group("Feature Settings")
+@export var debug_mode : bool = true
 @export var jumping_enabled : bool = true
 @export var in_air_momentum : bool = true
 @export var motion_smoothing : bool = true
@@ -81,14 +82,17 @@ func _ready():
 	# Multiplayer setup (if assigned an id)
 	if id != 0:
 		$MultiplayerSynchronizer.set_multiplayer_authority(id)
-		$UserInterface/DebugPanel.visible = _is_authority()
+		$UserInterface.visible = _is_authority()
 		$UserInterface/DebugPanel.add_property("Network ID", id, 6)
-		NAMETAG.text = "%s (%d)" % [GameManager.get_player(id)["name"], id]
+		NAMETAG.text = "%s (%d)" % [GameManager.get_player(id).name, id]
 		CAMERA.current = _is_authority()
 	
 	# If the controller is rotated in a certain direction for game design purposes, redirect this rotation into the head.
 	HEAD.rotation.y = rotation.y
 	rotation.y = 0
+	
+	if debug_mode:
+		$UserInterface/DebugPanel.visible = true
 	
 	if default_reticle:
 		change_reticle(default_reticle)
@@ -313,10 +317,6 @@ func headbob_animation(moving):
 		HEADBOB_ANIMATION.speed_scale = (current_speed / base_speed) * 1.75
 		if !was_playing:
 			HEADBOB_ANIMATION.seek(float(randi() % 2)) # Randomize the initial headbob direction
-			# Let me explain that piece of code because it looks like it does the opposite of what it actually does.
-			# The headbob animation has two starting positions. One is at 0 and the other is at 1.
-			# randi() % 2 returns either 0 or 1, and so the animation randomly starts at one of the starting positions.
-			# This code is extremely performant but it makes no sense.
 		
 	else:
 		if HEADBOB_ANIMATION.is_playing():

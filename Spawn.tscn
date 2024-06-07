@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvric7ccfnbwx"]
+
+[ext_resource type="Script" path="res://Shared/Scripts/SpawnNode.gd" id="1_rfika"]
+
+[node name="SpawnArea" type="Node3D" groups=["SpawnNodes"]]
+script = ExtResource("1_rfika")
+
+[node name="SpawnPlatform" type="CSGBox3D" parent="." groups=["SpawnNodes"]]
+size = Vector3(1, 0.1, 1)

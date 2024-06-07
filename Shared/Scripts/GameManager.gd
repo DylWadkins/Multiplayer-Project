@@ -2,14 +2,16 @@ extends Node
 
 signal player_list_changed()
 
-var Players = {}
+enum Teams {NONE, TEAM_A, TEAM_B}
+
+var Players : Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func get_num_players() -> int:
@@ -18,21 +20,17 @@ func get_num_players() -> int:
 func has_player(id: int) -> bool:
 	return Players.has(id)
 	
-func get_player(id: int) -> Dictionary:
+func get_player(id: int) -> PlayerData:
 	return Players.get(id)
 	
 func create_player(id: int, name: String) -> void:
-	Players[id] = {
-			"name" : name if name else "Player",
-			"id" : id,
-			"score": 0
-	}
+	Players[id] = PlayerData.new(id, name)
 	emit_signal("player_list_changed")
 
-func remove_player(id):
+func remove_player(id) -> void:
 	Players.erase(id)
 	emit_signal("player_list_changed")
 
-func destroy_lobby():
+func destroy_lobby() -> void:
 	Players = {}
 	emit_signal("player_list_changed")

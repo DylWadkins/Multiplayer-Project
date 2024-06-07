@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=3 uid="uid://cc1m2a1obsyn4"]
 
-[ext_resource type="Script" path="res://addons/fpc/character.gd" id="1_0t4e8"]
-[ext_resource type="Script" path="res://addons/fpc/EditorModule.gd" id="3_v3ckk"]
-[ext_resource type="Script" path="res://addons/fpc/debug.gd" id="3_x1wcc"]
+[ext_resource type="Script" path="res://addons/fpc/Player.gd" id="1_rtcpo"]
+[ext_resource type="Script" path="res://addons/fpc/debug.gd" id="2_bl25s"]
+[ext_resource type="Script" path="res://addons/fpc/EditorModule.gd" id="3_owfl5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
 albedo_color = Color(0.909804, 0.596078, 0, 1)
@@ -396,11 +396,8 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "NAMETAG")]
-script = ExtResource("1_0t4e8")
-base_speed = 6.5
-sprint_speed = 9.5
+script = ExtResource("1_rtcpo")
 crouch_speed = 1.2
-acceleration = 20.0
 jump_velocity = 3.5
 default_reticle = "res://addons/fpc/reticles/reticle_1.tscn"
 HEAD = NodePath("Head")
@@ -418,6 +415,7 @@ BACKWARD = "Back"
 PAUSE = "Menu"
 CROUCH = "Crouch"
 SPRINT = "Sprint"
+debug_mode = false
 in_air_momentum = false
 continuous_jumping = false
 
@@ -471,7 +469,7 @@ offset_top = 10.0
 offset_right = 453.0
 offset_bottom = 50.0
 theme = SubResource("Theme_wdf0f")
-script = ExtResource("3_x1wcc")
+script = ExtResource("2_bl25s")
 
 [node name="MarginContainer" type="MarginContainer" parent="UserInterface/DebugPanel"]
 layout_mode = 2
@@ -485,7 +483,7 @@ shape = SubResource("SphereShape3D_k4wwl")
 target_position = Vector3(0, 0.5, 0)
 
 [node name="EditorModule" type="Node" parent="."]
-script = ExtResource("3_v3ckk")
+script = ExtResource("3_owfl5")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.27042, 0)
