@@ -30,6 +30,7 @@ func remote_spawn_player(id, spawn_pos):
 # Checks all spawn points for a valid spawn location.
 func get_available_spawnpoint():
 	var spawn_nodes = get_tree().get_nodes_in_group("SpawnNodes")
+	spawn_nodes.shuffle()
 	for node in spawn_nodes:
 		if node.has_spawn():
 			return node.get_spawn()

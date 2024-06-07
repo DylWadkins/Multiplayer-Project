@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://chsfppi2amkpv"]
 
 [ext_resource type="Script" path="res://Shared/Scripts/LevelManager.gd" id="1_ou2vj"]
-[ext_resource type="PackedScene" uid="uid://cse863jipm4hc" path="res://Shared/Scenes/Spawn.tscn" id="3_ooi40"]
+[ext_resource type="PackedScene" uid="uid://cse863jipm4hc" path="res://Shared/Scenes/SpawnNode.tscn" id="2_mtjff"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a2hk3"]
 
@@ -39,12 +39,22 @@ environment = SubResource("Environment_7n5cp")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.332461, 0.657681, 0.675963, -0.273079, -0.618901, 0.736471, 0.902717, -0.42944, -0.0261612, 12.7334, 23.7979, 0)
 
-[node name="SpawnArea" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("3_ooi40")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.88784, -0.0535559, -0.838464)
+[node name="Spawn" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("2_mtjff")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.79107, -0.0535566, -3.55203)
 spawn_point = NodePath("SpawnPoint")
 spawn_area = NodePath("SpawnArea")
 
-[node name="SpawnArea2" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("3_ooi40")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1931, -0.0535563, 0.433399)
+[node name="Spawn2" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("2_mtjff")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.21664, -0.0535566, 3.87338)
+spawn_point = NodePath("SpawnPoint")
+spawn_area = NodePath("SpawnArea")
+
+[node name="Spawn3" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("2_mtjff")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.9259, -0.0535556, -4.41843)
+spawn_point = NodePath("SpawnPoint")
+spawn_area = NodePath("SpawnArea")
+
+[node name="Spawn4" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("2_mtjff")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.2761, -0.0535575, 4.36121)
 spawn_point = NodePath("SpawnPoint")
 spawn_area = NodePath("SpawnArea")
