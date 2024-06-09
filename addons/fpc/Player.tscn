@@ -384,18 +384,19 @@ MarginContainer/constants/margin_top = 10
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k4wwl"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_i7fej"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nmn42"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("Head:rotation")
+properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("Head/Camera:rotation")
+properties/2/path = NodePath("Head:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "NAMETAG")]
+collision_layer = 2
 script = ExtResource("1_rtcpo")
 crouch_speed = 1.2
 jump_velocity = 3.5
@@ -491,4 +492,4 @@ billboard = 1
 text = "obama"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_i7fej")
+replication_config = SubResource("SceneReplicationConfig_nmn42")

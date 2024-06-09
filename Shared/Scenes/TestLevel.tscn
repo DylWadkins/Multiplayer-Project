@@ -55,6 +55,9 @@ CROUCH_ANIMATION = NodePath("CrouchAnimation")
 COLLISION_MESH = NodePath("Collision")
 NAMETAG = NodePath("Label3D")
 
+[node name="Camera" parent="Character/Head" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0, 0)
+
 [node name="DebugPanel" parent="Character/UserInterface" index="0"]
 visible = false
 

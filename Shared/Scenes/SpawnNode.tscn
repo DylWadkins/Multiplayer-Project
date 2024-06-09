@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cse863jipm4hc"]
+[gd_scene load_steps=4 format=3 uid="uid://cse863jipm4hc"]
 
 [ext_resource type="Script" path="res://Shared/Scripts/SpawnNode.gd" id="1_rfika"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yq4gi"]
+albedo_color = Color(0.339264, 0.730383, 0.559046, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_arkct"]
 size = Vector3(1, 2, 1)
@@ -14,6 +17,7 @@ spawn_area = NodePath("SpawnArea")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 
 [node name="SpawnVisual" type="CSGBox3D" parent="."]
+material_override = SubResource("StandardMaterial3D_yq4gi")
 size = Vector3(1, 0.1, 1)
 
 [node name="SpawnArea" type="Area3D" parent="."]

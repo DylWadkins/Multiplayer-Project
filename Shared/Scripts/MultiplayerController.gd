@@ -86,11 +86,12 @@ func SendPlayerInformation(name, id):
 @rpc("any_peer","call_local")
 func start_game():
 	var scene = level.instantiate()
-	get_tree().root.add_child(scene)
+	add_child(scene)
 	
 	# If there is a network desync with spawning, it is likely related to this.
+	# When the server instantiates the scene, it should spawn all players
 	if multiplayer.is_server():
-		scene.spawn_all_players()
+		scene.get_node("PlayerSpawner").spawn_all_players()
 		
 	self.hide()
 	

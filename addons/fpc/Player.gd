@@ -81,7 +81,6 @@ func _ready():
 	
 	# Multiplayer setup (if assigned an id)
 	if id != 0:
-		$MultiplayerSynchronizer.set_multiplayer_authority(id)
 		$UserInterface.visible = _is_authority()
 		$UserInterface/DebugPanel.add_property("Network ID", id, 6)
 		NAMETAG.text = "%s (%d)" % [GameManager.get_player(id).name, id]

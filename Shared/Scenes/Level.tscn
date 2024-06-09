@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://chsfppi2amkpv"]
 
-[ext_resource type="Script" path="res://Shared/Scripts/LevelManager.gd" id="1_ou2vj"]
 [ext_resource type="PackedScene" uid="uid://cse863jipm4hc" path="res://Shared/Scenes/SpawnNode.tscn" id="2_mtjff"]
+[ext_resource type="Script" path="res://Shared/Scenes/SpawnManager.gd" id="3_lms8i"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a2hk3"]
 
@@ -16,7 +16,6 @@ reflected_light_source = 2
 
 [node name="Level1" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0146732, 4.76837e-07, -0.00843692)
-script = ExtResource("1_ou2vj")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.49745, -0.0540563, 0.0431051)
@@ -27,6 +26,10 @@ size = Vector3(33.276, 0.001, 15.9346)
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0579352, 7.82392, -7.85612)
 use_collision = true
 size = Vector3(16.1652, 0.001, 15.9346)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -4.16156, 2.15449, -1.84717)
+use_collision = true
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0579352, 7.82392, 8.00779)
@@ -39,22 +42,25 @@ environment = SubResource("Environment_7n5cp")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.332461, 0.657681, 0.675963, -0.273079, -0.618901, 0.736471, 0.902717, -0.42944, -0.0261612, 12.7334, 23.7979, 0)
 
+[node name="Players" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0146732, -4.76837e-07, 0.00843692)
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://addons/fpc/Player.tscn")
+spawn_path = NodePath("../Players")
+script = ExtResource("3_lms8i")
+
 [node name="Spawn" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("2_mtjff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.79107, -0.0535566, -3.55203)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.75117, -0.0535561, -4.12313)
 spawn_point = NodePath("SpawnPoint")
 spawn_area = NodePath("SpawnArea")
 
 [node name="Spawn2" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("2_mtjff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.21664, -0.0535566, 3.87338)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.19775, -0.0535561, 5.41691)
 spawn_point = NodePath("SpawnPoint")
 spawn_area = NodePath("SpawnArea")
 
 [node name="Spawn3" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("2_mtjff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.9259, -0.0535556, -4.41843)
-spawn_point = NodePath("SpawnPoint")
-spawn_area = NodePath("SpawnArea")
-
-[node name="Spawn4" parent="." node_paths=PackedStringArray("spawn_point", "spawn_area") instance=ExtResource("2_mtjff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.2761, -0.0535575, 4.36121)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.19775, -0.0535561, -4.39374)
 spawn_point = NodePath("SpawnPoint")
 spawn_area = NodePath("SpawnArea")
