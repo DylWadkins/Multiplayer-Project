@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqv6b3rkb8or6"]
+
+[ext_resource type="Texture2D" uid="uid://byascmsd4fcqw" path="res://Dylan/Textures/Dylan_Hands.webp" id="1_1w6d4"]
+[ext_resource type="Script" path="res://Shared/Scripts/Gun.gd" id="2_umkel"]
+[ext_resource type="PackedScene" uid="uid://jde7uqvufw4o" path="res://Shared/Scenes/Bullet.tscn" id="3_b53dg"]
+
+[node name="Right Hand (Gun)" type="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
+double_sided = false
+no_depth_test = true
+alpha_scissor_threshold = 0.0
+texture_filter = 2
+texture = ExtResource("1_1w6d4")
+script = ExtResource("2_umkel")
+bullet_scene = ExtResource("3_b53dg")

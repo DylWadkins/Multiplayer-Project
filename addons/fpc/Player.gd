@@ -19,6 +19,8 @@ extends CharacterBody3D
 @export_group("Nodes")
 @export var HEAD : Node3D
 @export var CAMERA : Camera3D
+@export var HANDS : Node3D
+@export var GUN : Node3D
 @export var HEADBOB_ANIMATION : AnimationPlayer
 @export var JUMP_ANIMATION : AnimationPlayer
 @export var CROUCH_ANIMATION : AnimationPlayer
@@ -74,17 +76,18 @@ var RETICLE : Control
 # Get the gravity from the project settings to be synced with RigidBody nodes
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") # Don't set this as a const, see the gravity section in _physics_process
 
-
 func _ready():
 	#It is safe to comment this line if your game doesn't start with the mouse captured
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	# Multiplayer setup (if assigned an id)
 	if id != 0:
+		
 		$UserInterface.visible = _is_authority()
 		$UserInterface/DebugPanel.add_property("Network ID", id, 6)
 		NAMETAG.text = "%s (%d)" % [GameManager.get_player(id).name, id]
 		CAMERA.current = _is_authority()
+		HANDS.visible = _is_authority() 
 	
 	# If the controller is rotated in a certain direction for game design purposes, redirect this rotation into the head.
 	HEAD.rotation.y = rotation.y
@@ -164,8 +167,8 @@ func _physics_process(delta):
 	var input_dir = Vector2.ZERO
 	if !immobile: # Immobility works by interrupting user input, so other forces can still be applied to the player
 		input_dir = Input.get_vector(LEFT, RIGHT, FORWARD, BACKWARD)
-	handle_movement(delta, input_dir)
 	
+	handle_movement(delta, input_dir)
 	# The player is not able to stand up if the ceiling is too low
 	low_ceiling = $CrouchCeilingDetection.is_colliding()
 	
@@ -183,6 +186,9 @@ func _physics_process(delta):
 					JUMP_ANIMATION.play("land_left", 0.25)
 				1:
 					JUMP_ANIMATION.play("land_right", 0.25)
+	
+	if Input.is_action_just_pressed("Attack"):
+		GUN.shoot()
 	
 	was_on_floor = is_on_floor() # This must always be at the end of physics_process
 

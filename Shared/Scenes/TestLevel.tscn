@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dsndkxlabe4xu"]
+[gd_scene load_steps=19 format=3 uid="uid://dsndkxlabe4xu"]
 
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/Player.tscn" id="1_e18vq"]
 [ext_resource type="Texture2D" uid="uid://pe7a4weirj2g" path="res://Shared/Textures/dark.png" id="2_08fdt"]
@@ -6,6 +6,11 @@
 [ext_resource type="Material" path="res://addons/qodot/textures/layers/water.tres" id="3_34jdn"]
 [ext_resource type="Texture2D" uid="uid://cxjxvqmf4boxq" path="res://Shared/Textures/green.png" id="3_q4clv"]
 [ext_resource type="Texture2D" uid="uid://dsv4jm4vydflb" path="res://Shared/Textures/orange.png" id="4_1ns5t"]
+[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_bank.gd" id="6_pgpge"]
+[ext_resource type="Script" path="res://addons/resonate/sound_manager/sound_event_resource.gd" id="7_offsi"]
+[ext_resource type="AudioStream" uid="uid://6563vpfeo4hg" path="res://Shared/Audio/explosion.ogg" id="8_skxox"]
+[ext_resource type="AudioStream" uid="uid://d1kar4wtqac3e" path="res://Shared/Audio/metal_explosion.ogg" id="9_qad7i"]
+[ext_resource type="PackedScene" uid="uid://bx2p4emibhd8g" path="res://Shared/Scenes/DestructibleCrate.tscn" id="11_tbm77"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_edcox"]
 ground_color = Color(0.160784, 0.815686, 0.905882, 1)
@@ -43,23 +48,29 @@ roughness = 0.5
 uv1_triplanar = true
 uv1_triplanar_sharpness = 0.000850145
 
+[sub_resource type="Resource" id="Resource_m0gvs"]
+script = ExtResource("7_offsi")
+name = "explode"
+bus = ""
+volume = 0.0
+pitch = 1.0
+streams = Array[AudioStream]([ExtResource("8_skxox"), ExtResource("9_qad7i")])
+
 [node name="test_world" type="Node3D"]
 
-[node name="Character" parent="." node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "NAMETAG") instance=ExtResource("1_e18vq")]
+[node name="Character" parent="." node_paths=PackedStringArray("HEAD", "CAMERA", "HANDS", "GUN", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "NAMETAG") instance=ExtResource("1_e18vq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+base_speed = 6.0
+sprint_speed = 9.0
 HEAD = NodePath("Head")
 CAMERA = NodePath("Head/Camera")
+HANDS = NodePath("Head/Hands")
+GUN = NodePath("Head/Hands/Right Hand (Gun)")
 HEADBOB_ANIMATION = NodePath("Head/HeadbobAnimation")
 JUMP_ANIMATION = NodePath("Head/JumpAnimation")
 CROUCH_ANIMATION = NodePath("CrouchAnimation")
 COLLISION_MESH = NodePath("Collision")
 NAMETAG = NodePath("Label3D")
-
-[node name="Camera" parent="Character/Head" index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0, 0)
-
-[node name="DebugPanel" parent="Character/UserInterface" index="0"]
-visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_20rw3")
@@ -101,9 +112,9 @@ size = Vector3(10, 1, 10)
 material = SubResource("StandardMaterial3D_u0sbk")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.168, 4.43, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7552, 4.43, -5)
 use_collision = true
-size = Vector3(9, 1, 20)
+size = Vector3(12.1745, 1, 20)
 material = SubResource("StandardMaterial3D_u0sbk")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="terrain"]
@@ -112,4 +123,11 @@ use_collision = true
 size = Vector3(19, 8, 1)
 material = SubResource("StandardMaterial3D_7j4uu")
 
-[editable path="Character"]
+[node name="SoundBank" type="Node" parent="."]
+script = ExtResource("6_pgpge")
+label = "explosions"
+events = Array[ExtResource("7_offsi")]([SubResource("Resource_m0gvs")])
+
+[node name="Destructible" parent="." node_paths=PackedStringArray("intact") instance=ExtResource("11_tbm77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.6639, 12.1384, -11.4859)
+intact = NodePath("RigidBody3D")

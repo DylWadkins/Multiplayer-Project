@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://jde7uqvufw4o"]
+
+[ext_resource type="Script" path="res://Shared/Scripts/Bullet.gd" id="1_728w6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yllx1"]
+size = Vector3(0.05, 0.05, 0.5)
+
+[node name="Bullet" type="Node3D"]
+top_level = true
+script = ExtResource("1_728w6")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_yllx1")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

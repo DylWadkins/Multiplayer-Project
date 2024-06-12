@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://brecn8wyfmgpr"]
+
+[ext_resource type="Texture2D" uid="uid://c2fsroabgv0eb" path="res://Shared/Models/Textures/ship_crate_Red_Base_color.png" id="1_y024s"]
+[ext_resource type="Texture2D" uid="uid://gqhbm8x42467" path="res://Shared/Models/Textures/ship_crate_Red_Normal_OpenGL.png" id="2_3r3fo"]
+[ext_resource type="Texture2D" uid="uid://v603wuvc6ice" path="res://Shared/Models/Textures/ship_crate_Red_Roughness.png" id="3_jmowl"]
+
+[resource]
+albedo_texture = ExtResource("1_y024s")
+roughness_texture = ExtResource("3_jmowl")
+normal_enabled = true
+normal_texture = ExtResource("2_3r3fo")

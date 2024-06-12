@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://bx2p4emibhd8g"]
+
+[ext_resource type="Script" path="res://addons/destruction/destruction.gd" id="1_gbb8w"]
+[ext_resource type="PackedScene" uid="uid://d2k56c4uqudc7" path="res://Shared/Models/ship_crate_frac.glb" id="2_2lodo"]
+[ext_resource type="PackedScene" uid="uid://bimhq3mpdid2w" path="res://Arthur/Prefab.tscn" id="3_cm3ku"]
+[ext_resource type="PackedScene" uid="uid://bsck7q7skq2pc" path="res://Shared/Models/ship_crate_intact.glb" id="4_1hp01"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pt7mk"]
+size = Vector3(2.437, 2.594, 6)
+
+[node name="Destructible" type="Node3D" node_paths=PackedStringArray("intact")]
+script = ExtResource("1_gbb8w")
+intact = NodePath("RigidBody3D")
+fragmented = ExtResource("2_2lodo")
+fade_delay = -1.0
+shrink_delay = 5.0
+animation_length = 15.0
+particles = ExtResource("3_cm3ku")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="ship_crate_intact" parent="RigidBody3D" instance=ExtResource("4_1hp01")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.322, 0)
+shape = SubResource("BoxShape3D_pt7mk")

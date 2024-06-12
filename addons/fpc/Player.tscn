@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=23 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/Player.gd" id="1_rtcpo"]
 [ext_resource type="Script" path="res://addons/fpc/debug.gd" id="2_bl25s"]
+[ext_resource type="PackedScene" uid="uid://cqv6b3rkb8or6" path="res://Shared/Scenes/Gun.tscn" id="2_tten0"]
 [ext_resource type="Script" path="res://addons/fpc/EditorModule.gd" id="3_owfl5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
@@ -395,14 +396,18 @@ properties/2/path = NodePath("Head:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "NAMETAG")]
+[node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HANDS", "GUN", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "NAMETAG")]
 collision_layer = 2
 script = ExtResource("1_rtcpo")
+base_speed = 1.0
+sprint_speed = 1.2
 crouch_speed = 1.2
 jump_velocity = 3.5
 default_reticle = "res://addons/fpc/reticles/reticle_1.tscn"
 HEAD = NodePath("Head")
 CAMERA = NodePath("Head/Camera")
+HANDS = NodePath("Head/Hands")
+GUN = NodePath("Head/Hands/Right Hand (Gun)")
 HEADBOB_ANIMATION = NodePath("Head/HeadbobAnimation")
 JUMP_ANIMATION = NodePath("Head/JumpAnimation")
 CROUCH_ANIMATION = NodePath("CrouchAnimation")
@@ -416,7 +421,6 @@ BACKWARD = "Back"
 PAUSE = "Menu"
 CROUCH = "Crouch"
 SPRINT = "Sprint"
-debug_mode = false
 in_air_momentum = false
 continuous_jumping = false
 
@@ -439,20 +443,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="Camera" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0, 0)
 
-[node name="RayCast3D" type="RayCast3D" parent="Head"]
+[node name="Aimcast" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.163301, -0.474699)
 
 [node name="HeadbobAnimation" type="AnimationPlayer" parent="Head"]
 libraries = {
 "": SubResource("AnimationLibrary_o0unb")
 }
-blend_times = [&"walk", &"RESET", 0.5, &"RESET", &"walk", 0.5, &"RESET", &"RESET", 0.5]
+blend_times = [&"RESET", &"RESET", 0.5, &"RESET", &"walk", 0.5, &"walk", &"RESET", 0.5]
 
 [node name="JumpAnimation" type="AnimationPlayer" parent="Head"]
 libraries = {
 "": SubResource("AnimationLibrary_qeg5r")
 }
 speed_scale = 4.0
+
+[node name="Hands" type="Node3D" parent="Head"]
+
+[node name="Right Hand (Gun)" parent="Head/Hands" instance=ExtResource("2_tten0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.485, -0.34, -0.925)
 
 [node name="UserInterface" type="Control" parent="."]
 layout_mode = 3
