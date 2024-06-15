@@ -1,9 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=27 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/Player.gd" id="1_rtcpo"]
 [ext_resource type="Script" path="res://addons/fpc/debug.gd" id="2_bl25s"]
 [ext_resource type="PackedScene" uid="uid://cqv6b3rkb8or6" path="res://Shared/Scenes/Gun.tscn" id="2_tten0"]
+[ext_resource type="Texture2D" uid="uid://byascmsd4fcqw" path="res://Dylan/Textures/Dylan_Hands.webp" id="3_6tve7"]
 [ext_resource type="Script" path="res://addons/fpc/EditorModule.gd" id="3_owfl5"]
+[ext_resource type="Texture2D" uid="uid://cbx20rcr1duna" path="res://Dylan/Textures/Flip.png" id="4_i3m6o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
 albedo_color = Color(0.909804, 0.596078, 0, 1)
@@ -377,6 +379,21 @@ _data = {
 "land_right": SubResource("Animation_vsknp")
 }
 
+[sub_resource type="Animation" id="Animation_b5r1t"]
+resource_name = "FlipOff"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Emote")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.79, -1.185, -0.925, 0.999, 1, -0.79, -0.275, -0.925)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jxegd"]
+_data = {
+"FlipOff": SubResource("Animation_b5r1t")
+}
+
 [sub_resource type="Theme" id="Theme_wdf0f"]
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
@@ -397,7 +414,6 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HANDS", "GUN", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "NAMETAG")]
-collision_layer = 2
 script = ExtResource("1_rtcpo")
 base_speed = 1.0
 sprint_speed = 1.2
@@ -461,7 +477,28 @@ speed_scale = 4.0
 [node name="Hands" type="Node3D" parent="Head"]
 
 [node name="Right Hand (Gun)" parent="Head/Hands" instance=ExtResource("2_tten0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.485, -0.34, -0.925)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.512914, -0.34, -0.925)
+
+[node name="LeftHand" type="Sprite3D" parent="Head/Hands"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.680918, -0.374, -0.925)
+flip_h = true
+double_sided = false
+no_depth_test = true
+texture_filter = 2
+texture = ExtResource("3_6tve7")
+
+[node name="Emote" type="Sprite3D" parent="Head/Hands"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79, -0.275, -0.925)
+visible = false
+double_sided = false
+no_depth_test = true
+texture_filter = 2
+texture = ExtResource("4_i3m6o")
+
+[node name="EmoteAnimation" type="AnimationPlayer" parent="Head/Hands"]
+libraries = {
+"": SubResource("AnimationLibrary_jxegd")
+}
 
 [node name="UserInterface" type="Control" parent="."]
 layout_mode = 3

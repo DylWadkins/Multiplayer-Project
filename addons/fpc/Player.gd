@@ -5,6 +5,11 @@
 
 extends CharacterBody3D
 
+@onready var LeftHand = $Head/Hands/LeftHand
+@onready var Emote =  $Head/Hands/Emote
+@onready var EMOTE_ANIMATION = $Head/Hands/EmoteAnimation
+
+
 @export_category("Character")
 @export var base_speed : float = 6.0
 @export var sprint_speed : float = 9.0
@@ -189,6 +194,20 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("Attack"):
 		GUN.shoot()
+	
+	if Input.is_action_just_pressed("Exit"):
+		get_tree().quit()
+	
+	if Input.is_action_just_pressed("Taunt"):
+		LeftHand.visible = false;
+		Emote.visible = true;
+		EMOTE_ANIMATION.play("FlipOff");
+		
+	if Input.is_action_just_released("Taunt"):
+		EMOTE_ANIMATION.play_backwards("FlipOff");
+		await get_tree().create_timer(1.0).timeout
+		Emote.visible = false;
+		LeftHand.visible = true;
 	
 	was_on_floor = is_on_floor() # This must always be at the end of physics_process
 

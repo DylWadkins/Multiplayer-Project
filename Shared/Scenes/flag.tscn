@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb2sgasrejkc0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ryivx"]
+size = Vector3(0.677948, 1.81955, 0.460022)
+
+[node name="Flag" type="Node3D"]
+
+[node name="FlagObject" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9997, 0)
+
+[node name="FlagGeo" type="CSGCylinder3D" parent="FlagObject"]
+radius = 0.0676853
+height = 1.42004
+
+[node name="FlagGeo2" type="CSGBox3D" parent="FlagObject/FlagGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00879973, 0.952871, -0.000281274)
+size = Vector3(0.638367, 0.687988, 0.114197)
+
+[node name="FlagCollision" type="CollisionShape3D" parent="FlagObject"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0252184, 0.418577, -0.000576407)
+shape = SubResource("BoxShape3D_ryivx")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://dsndkxlabe4xu"]
+[gd_scene load_steps=20 format=3 uid="uid://dsndkxlabe4xu"]
 
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/Player.tscn" id="1_e18vq"]
 [ext_resource type="Texture2D" uid="uid://pe7a4weirj2g" path="res://Shared/Textures/dark.png" id="2_08fdt"]
+[ext_resource type="PackedScene" uid="uid://cb2sgasrejkc0" path="res://Shared/Scenes/flag.tscn" id="2_mi0pv"]
 [ext_resource type="Material" path="res://addons/qodot/textures/orrery/sun.tres" id="2_y12ay"]
 [ext_resource type="Material" path="res://addons/qodot/textures/layers/water.tres" id="3_34jdn"]
 [ext_resource type="Texture2D" uid="uid://cxjxvqmf4boxq" path="res://Shared/Textures/green.png" id="3_q4clv"]
@@ -131,3 +132,6 @@ events = Array[ExtResource("7_offsi")]([SubResource("Resource_m0gvs")])
 [node name="Destructible" parent="." node_paths=PackedStringArray("intact") instance=ExtResource("11_tbm77")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.6639, 12.1384, -11.4859)
 intact = NodePath("RigidBody3D")
+
+[node name="Flag" parent="." instance=ExtResource("2_mi0pv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.33395, -13.7285)
